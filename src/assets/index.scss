@@ -13,9 +13,18 @@ body,
   min-height: 100%;
 }
 
-body::-webkit-scrollbar{
+body {
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
   display: none;
 }
+
+
+// =========================================================
+// HERO
+// =========================================================
 
 .tree-banner {
   --mouse-x: 50%;
@@ -30,24 +39,78 @@ body::-webkit-scrollbar{
 
   overflow: hidden;
 
-  display: flex;
-  align-items: center;
-
-  /*
-   * Reference-inspired blue sky gradient
-   */
-  background:
-    radial-gradient(
-      circle at 72% 18%,
-      rgba(255, 255, 255, 0.3) 0%,
-      rgba(255, 255, 255, 0) 28%
-    ),
-    linear-gradient(180deg, #72b7e4 0%, #8bc5e8 35%, #a9d4e8 68%, #c7dfe5 100%);
+  isolation: isolate;
 
   color: #ffffff;
 
-  isolation: isolate;
+  /*
+   * Keep the background image here.
+   * The pseudo element below handles the blur.
+   */
+  background: #8fc7e9;
 }
+
+
+// =========================================================
+// BACKGROUND
+// =========================================================
+
+.tree-banner::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -18px;
+
+  z-index: -2;
+
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(60, 145, 205, 0.08),
+      rgba(190, 220, 232, 0.12)
+    ),
+    url("../../public/a.png");
+
+  background-size: cover;
+
+  background-position: center center;
+
+  /*
+   * Slight blur only.
+   * Don't make this too strong otherwise
+   * the sky starts looking artificial.
+   */
+  filter: blur(4px);
+
+  transform: scale(1.025);
+}
+
+
+// =========================================================
+// BACKGROUND COLOR OVERLAY
+// =========================================================
+
+.tree-banner::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(37, 130, 194, 0.06) 0%,
+      rgba(67, 153, 204, 0.02) 45%,
+      rgba(206, 226, 231, 0.12) 100%
+    );
+}
+
 
 // =========================================================
 // CONTENT
@@ -56,67 +119,95 @@ body::-webkit-scrollbar{
 .tree-banner__content {
   position: absolute;
 
-  z-index: 10;
+  z-index: 20;
 
-  top: 5%;
-  left: 6vw;
+  top: 6.5%;
+  left: 5.8vw;
+
+  width: calc(100% - 11.6vw);
 
   pointer-events: none;
 }
+
 
 // =========================================================
 // EYEBROW
 // =========================================================
 
 .tree-banner__eyebrow {
-  margin: 0 0 22px;
+  margin-bottom: 24px;
 
   font-family: "DM Sans", sans-serif;
 
-  font-size: 11px;
+  font-size: 12px;
+
   font-weight: 600;
+
+  line-height: 1;
 
   letter-spacing: 0.18em;
 
   text-transform: uppercase;
 
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.94);
+
+  text-shadow:
+    0 1px 12px rgba(30, 80, 110, 0.2);
 }
 
+
 // =========================================================
-// MAIN HEADING
+// HEADING
 // =========================================================
 
 .tree-banner h1 {
+  width: 100%;
+
   margin: 0;
 
-  font-family: "Playfair Display", Georgia, serif;
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
 
-  font-size: clamp(64px, 7.5vw, 125px);
+  /*
+   * Large editorial heading like the reference.
+   */
+  font-size: clamp(
+    72px,
+    8.2vw,
+    138px
+  );
 
   font-weight: 400;
 
-  line-height: 0.84;
+  line-height: 0.86;
 
   letter-spacing: -0.065em;
 
   color: #ffffff;
 
-  text-shadow: 0 2px 18px rgba(30, 90, 130, 0.08);
+  white-space: nowrap;
+
+  text-shadow:
+    0 2px 20px rgba(30, 80, 110, 0.12);
 }
 
 .tree-banner h1 span {
   font-style: italic;
 }
 
+
 // =========================================================
 // DESCRIPTION
 // =========================================================
 
 .tree-banner__description {
-  max-width: 500px;
+  width: 390px;
 
-  margin-top: 32px;
+  max-width: 100%;
+
+  margin-top: 34px;
 
   font-family: "DM Sans", sans-serif;
 
@@ -124,63 +215,80 @@ body::-webkit-scrollbar{
 
   font-weight: 400;
 
-  line-height: 1.55;
+  line-height: 1.6;
 
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.9);
+
+  text-shadow:
+    0 1px 10px rgba(30, 80, 110, 0.18);
 }
+
 
 // =========================================================
 // BUTTON
 // =========================================================
 
 .tree-banner__button {
-  margin-top: 25px;
+  margin-top: 27px;
 
   display: inline-flex;
 
   align-items: center;
   justify-content: center;
 
-  gap: 22px;
+  gap: 24px;
 
-  padding: 14px 21px;
+  padding: 14px 22px;
 
-  border: 0;
+  border: 1px solid
+    rgba(255, 255, 255, 0.5);
 
-  /*
-   * Lime from reference
-   */
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
 
-  border-radius: 100px;
-
-  background: rgba(255, 255, 255, 0.12);
+  background:
+    rgba(255, 255, 255, 0.14);
 
   backdrop-filter: blur(12px);
 
+  -webkit-backdrop-filter: blur(12px);
+
   color: #ffffff;
+
   font-family: "DM Sans", sans-serif;
 
-  font-size: 14px;
+  font-size: 13px;
+
   font-weight: 600;
 
   cursor: pointer;
 
   pointer-events: auto;
 
-  box-shadow: 0 8px 25px rgba(70, 110, 20, 0.12);
+  box-shadow:
+    0 8px 30px
+    rgba(20, 80, 110, 0.12);
 
   transition:
     transform 0.3s ease,
     background 0.3s ease,
-    box-shadow 0.3s ease;
+    border-color 0.3s ease;
 }
 
 .tree-banner__button span {
   font-size: 17px;
+
   line-height: 1;
 }
 
+.tree-banner__button:hover {
+  transform: translateY(-3px);
+
+  background:
+    rgba(255, 255, 255, 0.24);
+
+  border-color:
+    rgba(255, 255, 255, 0.75);
+}
 
 
 // =========================================================
@@ -204,6 +312,7 @@ body::-webkit-scrollbar{
   pointer-events: auto;
 }
 
+
 // =========================================================
 // TREE IMAGE
 // =========================================================
@@ -211,6 +320,9 @@ body::-webkit-scrollbar{
 .tree-banner__image {
   position: absolute;
 
+  /*
+   * Large branch.
+   */
   width: 115vw;
 
   height: auto;
@@ -218,28 +330,37 @@ body::-webkit-scrollbar{
   max-width: none;
 
   left: 50%;
-  top: 57%;
 
-  transform: translate(-50%, -50%);
+  /*
+   * Move branch slightly downward
+   * compared with your current version.
+   */
+  top: 62%;
+
+  transform:
+    translate(-50%, -50%);
 
   display: block;
 
   user-select: none;
+
   pointer-events: none;
 
   -webkit-user-drag: none;
 }
 
+
 // =========================================================
-// BARE BRANCH
+// BASE / BARE BRANCH
 // =========================================================
 
 .tree-banner__image--base {
   z-index: 1;
 }
 
+
 // =========================================================
-// MOSS OVERLAY
+// MOSS REVEAL
 // =========================================================
 
 .tree-banner__overlay {
@@ -253,38 +374,52 @@ body::-webkit-scrollbar{
 
   pointer-events: none;
 
-  mask-image: radial-gradient(
-    ellipse 380px 210px at var(--mouse-x) var(--mouse-y),
-    black 0%,
+  /*
+   * Wider horizontal reveal.
+   */
+  mask-image:
+    radial-gradient(
+      ellipse 390px 215px
+      at
+      var(--mouse-x)
+      var(--mouse-y),
 
-    black 28%,
+      black 0%,
 
-    rgba(0, 0, 0, 0.95) 42%,
+      black 28%,
 
-    rgba(0, 0, 0, 0.75) 58%,
+      rgba(0, 0, 0, 0.95) 42%,
 
-    rgba(0, 0, 0, 0.35) 76%,
+      rgba(0, 0, 0, 0.75) 58%,
 
-    transparent 100%
-  );
+      rgba(0, 0, 0, 0.35) 76%,
 
-  -webkit-mask-image: radial-gradient(
-    ellipse 380px 210px at var(--mouse-x) var(--mouse-y),
-    black 0%,
+      transparent 100%
+    );
 
-    black 28%,
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse 390px 215px
+      at
+      var(--mouse-x)
+      var(--mouse-y),
 
-    rgba(0, 0, 0, 0.95) 42%,
+      black 0%,
 
-    rgba(0, 0, 0, 0.75) 58%,
+      black 28%,
 
-    rgba(0, 0, 0, 0.35) 76%,
+      rgba(0, 0, 0, 0.95) 42%,
 
-    transparent 100%
-  );
+      rgba(0, 0, 0, 0.75) 58%,
+
+      rgba(0, 0, 0, 0.35) 76%,
+
+      transparent 100%
+    );
 
   will-change: opacity;
 }
+
 
 // =========================================================
 // MOUSE HINT
@@ -293,22 +428,29 @@ body::-webkit-scrollbar{
 .tree-banner__hint {
   position: absolute;
 
-  z-index: 10;
+  z-index: 15;
 
   left: 50%;
-  bottom: 35px;
 
-  transform: translateX(-50%);
+  bottom: 28px;
 
-  padding: 9px 15px;
+  transform:
+    translateX(-50%);
 
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 9px 16px;
 
-  border-radius: 100px;
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.4);
 
-  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.1);
 
   backdrop-filter: blur(12px);
+
+  -webkit-backdrop-filter: blur(12px);
 
   color: #ffffff;
 
@@ -323,80 +465,87 @@ body::-webkit-scrollbar{
   pointer-events: none;
 }
 
+
 // =========================================================
-// RESPONSIVE — TABLET
+// LARGE DESKTOP
 // =========================================================
 
-@media (max-width: 1000px) {
+@media (min-width: 1500px) {
   .tree-banner__content {
-    top: 14%;
-    left: 5vw;
-
-    width: 60vw;
+    top: 7%;
   }
 
   .tree-banner h1 {
-    font-size: clamp(60px, 9vw, 95px);
+    font-size: clamp(
+      110px,
+      8.3vw,
+      155px
+    );
+  }
+
+  .tree-banner__image {
+    width: 120vw;
+
+    top: 64%;
+  }
+}
+
+
+// =========================================================
+// TABLET
+// =========================================================
+
+@media (max-width: 1100px) {
+  .tree-banner__content {
+    top: 7%;
+
+    left: 5vw;
+
+    width: 90vw;
+  }
+
+  .tree-banner h1 {
+    font-size: clamp(
+      64px,
+      9vw,
+      100px
+    );
   }
 
   .tree-banner__description {
-    max-width: 320px;
+    width: 330px;
   }
 
   .tree-banner__image {
     width: 135vw;
 
-    top: 60%;
-  }
-
-  .tree-banner__overlay {
-    mask-image: radial-gradient(
-      ellipse 330px 190px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-
-      black 30%,
-
-      rgba(0, 0, 0, 0.7) 60%,
-
-      transparent 100%
-    );
-
-    -webkit-mask-image: radial-gradient(
-      ellipse 330px 190px at var(--mouse-x) var(--mouse-y),
-      black 0%,
-
-      black 30%,
-
-      rgba(0, 0, 0, 0.7) 60%,
-
-      transparent 100%
-    );
+    top: 63%;
   }
 }
 
+
 // =========================================================
-// RESPONSIVE — MOBILE
+// MOBILE
 // =========================================================
 
 @media (max-width: 600px) {
   .tree-banner {
     height: 100svh;
-    min-height: 650px;
 
-    /*
-     * Slightly deeper blue on mobile
-     */
-    background:
-      radial-gradient(
-        circle at 80% 15%,
-        rgba(255, 255, 255, 0.25),
-        transparent 30%
-      ),
-      linear-gradient(180deg, #75b8e3 0%, #91c9e7 45%, #c4dfe4 100%);
+    min-height: 650px;
+  }
+
+  .tree-banner::before {
+    filter: blur(3px);
+
+    transform: scale(1.03);
+
+    background-position:
+      center center;
   }
 
   .tree-banner__content {
-    top: 12%;
+    top: 8%;
 
     left: 22px;
 
@@ -404,61 +553,89 @@ body::-webkit-scrollbar{
   }
 
   .tree-banner__eyebrow {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 
     font-size: 9px;
   }
 
   .tree-banner h1 {
-    font-size: clamp(52px, 15vw, 78px);
+    width: 100%;
+
+    font-size: clamp(
+      48px,
+      14vw,
+      76px
+    );
 
     line-height: 0.88;
+
+    letter-spacing: -0.06em;
+
+    /*
+     * Allow wrapping on mobile.
+     */
+    white-space: normal;
   }
 
   .tree-banner__description {
-    max-width: 280px;
+    width: 280px;
 
     margin-top: 24px;
 
     font-size: 12px;
 
-    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.55;
   }
 
   .tree-banner__button {
     margin-top: 20px;
 
     padding: 12px 18px;
+
+    font-size: 12px;
   }
 
   .tree-banner__image {
+    /*
+     * Bigger branch on mobile.
+     */
     width: 190vw;
 
-    top: 63%;
+    top: 68%;
   }
 
   .tree-banner__overlay {
-    mask-image: radial-gradient(
-      ellipse 240px 170px at var(--mouse-x) var(--mouse-y),
-      black 0%,
+    mask-image:
+      radial-gradient(
+        ellipse 240px 170px
+        at
+        var(--mouse-x)
+        var(--mouse-y),
 
-      black 30%,
+        black 0%,
 
-      rgba(0, 0, 0, 0.7) 60%,
+        black 30%,
 
-      transparent 100%
-    );
+        rgba(0, 0, 0, 0.7) 60%,
 
-    -webkit-mask-image: radial-gradient(
-      ellipse 240px 170px at var(--mouse-x) var(--mouse-y),
-      black 0%,
+        transparent 100%
+      );
 
-      black 30%,
+    -webkit-mask-image:
+      radial-gradient(
+        ellipse 240px 170px
+        at
+        var(--mouse-x)
+        var(--mouse-y),
 
-      rgba(0, 0, 0, 0.7) 60%,
+        black 0%,
 
-      transparent 100%
-    );
+        black 30%,
+
+        rgba(0, 0, 0, 0.7) 60%,
+
+        transparent 100%
+      );
   }
 
   .tree-banner__hint {
